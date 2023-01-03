@@ -2,17 +2,24 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
+import { getPosts } from '../utils/wordpress'
+import Post from '../components/Post'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({data}) {
-  console.log(data);
+export default function Home({posts}) {
+  console.log(posts);
 
-  const postTitle = data.map((post) => {
+  
+
+  const postBox = posts.map((post => {
     return(
-      <h4 key={post.id}>{post.title.rendered}</h4>
+      <Post post={post} />
     )
-  })
+  }))
+
+
 
 
   return (
@@ -23,11 +30,10 @@ export default function Home({data}) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        
+      <main>
+        <h1>Dev Blog</h1>
 
-      {postTitle}
-        
+      {postBox}
 
         
       </main>
@@ -35,20 +41,11 @@ export default function Home({data}) {
   )
 }
 
-export async function getServerSideProps(context) {
-  const res  = await fetch(`https://nextwp.hadiul-islam.me/wp-json/wp/v2/posts`)
-  const data = await res.json()
-
-  if(!data) {
-    return {
-      notFound: true
-    }
-  }
-
+export async function getStaticProps(params) {
+  const posts = await getPosts()
   return {
     props: {
-      data
-    }
+      posts
+    }, // will be passed to the page component as props
   }
-  
 }
