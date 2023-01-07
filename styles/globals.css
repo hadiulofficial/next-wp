@@ -11247,5 +11247,10 @@ header.masthead .site-heading .h1 {
   }
 }
 
-/*extra */
+/*back to home button css */
+button {
+    background-color: #0085A1;
+    color: white;
+    border: none;
+}
 

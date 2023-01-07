@@ -14,7 +14,7 @@ export default function Home({ posts }) {
   const postBox = posts.map((post => {
     return (
       <>
-        <Post post={post} />
+        <Post key={post.id} post={post} />
       </>
     )
   }))
@@ -31,7 +31,7 @@ export default function Home({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <MainHeader />
+        <MainHeader title="Dev Blog" subTitle="Code smarter, not harder: Insights and tips for developers" />
 
         <div className='container px-4 px-lg-5'>
           <div className="row gx-4 gx-lg-5 justify-content-center">
@@ -52,6 +52,6 @@ export async function getStaticProps(params) {
   return {
     props: {
       posts
-    }, // will be passed to the page component as props
+    }, 
   }
 }
