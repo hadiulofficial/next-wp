@@ -4,18 +4,18 @@ import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import { getPosts } from '../utils/wordpress'
 import Post from '../components/Post'
+import MainHeader from '../components/layout/main-header'
 
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({posts}) {
-  console.log(posts);
-
-  
+export default function Home({ posts }) {
 
   const postBox = posts.map((post => {
-    return(
-      <Post post={post} />
+    return (
+      <>
+        <Post post={post} />
+      </>
     )
   }))
 
@@ -31,11 +31,17 @@ export default function Home({posts}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Dev Blog</h1>
+        <MainHeader />
 
-      {postBox}
+        <div className='container px-4 px-lg-5'>
+          <div className="row gx-4 gx-lg-5 justify-content-center">
+            <div className="col-md-10 col-lg-8 col-xl-7">
+              {postBox}
+            </div>
+          </div>
+        </div>
 
-        
+
       </main>
     </>
   )
